@@ -30,14 +30,22 @@
 				</li>
 			</ul>
 		</div>
+		<div class="list-fixed" v-show="fixedTitle" ref="fixed">
+			<div class="fixed-title">{{fixedTitle}}</div>
+		</div>
+		<div v-show="!data.length" class="loading-container">
+		  <loading></loading>
+		</div>
 	</scroll>
 </template>
 
 <script type="text/ecmascript-6">
 	import Scroll from 'base/scroll/scroll'
 	import {getData} from 'common/js/dom'
+	import Loading from 'base/loading/loading'
 	
 	const ANCHOR_HEIGHT = 18
+	const TITLE_HEIGHT = 30
 	
   export default{
 		props:{
@@ -59,13 +67,20 @@
 			this.listHeight = []
 		},
 		components:{
-			Scroll
+			Scroll,
+			Loading
 		},
 		computed: {
 			shortcutList() {
 				return this.data.map((group) =>{
 					return group.title.substr(0, 1)
 				}) 
+			},
+			fixedTitle(){
+				if(this.scrollY > 0) {
+					return ''
+				}
+				return this.data[this.currentIndex] ? this.data[this.currentIndex].title : ''
 			}
 		},
 		methods: {
@@ -87,6 +102,16 @@
 			  this.scrollY = pos.y
 			},
 			_scrollTo(index){
+				if(!index && index !== 0){
+					return
+				}
+				if(index < 0){
+					index = 0
+				} else if (index> this.listHeight.length - 2) {
+					index = this.listHeight.length - 2
+				}
+				
+				this.scrollY = -this.listHeight[index]
 				this.$refs.listview.scrollToElement(this.$refs.listGroup[index],0)
 			},
 			_calculateHeight(){
@@ -119,11 +144,20 @@
 					let height2 = listHeight[i+1]
 					if(-newY >= height1 && -newY < height2){
 						this.currentIndex = i
+						this.diff = height2 + newY
 						return
 					}			
 				}
 				this.currentIndex = listHeight.length - 2
 			},
+			diff(newVal){
+				 let fixedTop = (newVal > 0 && newVal < TITLE_HEIGHT) ? newVal - TITLE_HEIGHT : 0
+				 if (this.fixedTop === fixedTop) {
+				   return
+				 }
+				 this.fixedTop = fixedTop
+				 this.$refs.fixed.style.transform = `translate3d(0,${fixedTop}px,0)`
+			}
 
 		},
 
