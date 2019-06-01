@@ -7,16 +7,16 @@ import 'common/stylus/index.styl'
 import VueLazyLoad from 'vue-lazyload'
 import store from './store'
 
-
 fastclick.attach(document.body)
-Vue.use(VueLazyLoad,{
-	loading: require('common/image/default.png')
+Vue.use(VueLazyLoad, {
+  loading: require('common/image/default.png')
 })
 
+/* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
   store,
-  render : h => h(App),
+  render: h => h(App)
 
 })
