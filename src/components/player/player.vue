@@ -86,6 +86,7 @@ import ProgressBar from 'base/progress-bar/progress-bar'
 import ProgressCircle from 'base/progress-circle/progress-circle'
 import {playMode} from 'common/js/config'
 import { shuffle } from 'common/js/until'
+import Lyric from 'lyric-parser'
 
 const transform = prefixStyle('transform')
 
@@ -94,7 +95,8 @@ export default {
     return {
       songReady: false,
       currentTime: 0,
-      radius: 32
+      radius: 32,
+      currentLyric: null
     }
   },
   computed: {
@@ -127,6 +129,12 @@ export default {
     ])
   },
   methods: {
+    getLyric() {
+      this.currentSong.getLyric().then((lyric) => {
+        this.currentLyric = new Lyric(lyric)
+        console.log(this.currentLyric)
+      })
+    },
     end() {
       if (this.mode === playMode.loop) {
         this.loop()
@@ -307,6 +315,7 @@ export default {
       }
       this.$nextTick(() => {
         this.$refs.audio.play()
+        this.getLyric()
       })
     },
     playing(newPlaying) {
