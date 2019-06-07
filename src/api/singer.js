@@ -38,7 +38,6 @@ export function getSingerDetail(singerId) {
 export function getSongVkey(songmid) {
   const url = 'https://c.y.qq.com/base/fcgi-bin/fcg_music_express_mobile3.fcg'
   const data = Object.assign({}, {
-    callback: 'musicJsonCallback',
     loginUin: 3051522991,
     format: 'jsonp',
     platform: 'yqq',
@@ -58,7 +57,7 @@ export function getMusic(songmid) {
   const data = Object.assign({}, commonParams, {
     songmid: songmid,
     filename: 'C400' + songmid + '.m4a',
-    guid: 6319873028, // 会变，以实时抓取的数据为准
+    guid: 6319873028,
     platform: 'yqq',
     loginUin: 0,
     hostUin: 0,
