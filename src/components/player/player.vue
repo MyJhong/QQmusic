@@ -71,7 +71,7 @@
               <i class="icon-next" @click="next"></i>
             </div>
             <div class="icon i-right">
-              <i class="icon icon-not-favorite"></i>
+              <i class="icon" :class="getFavoriteIcon(currentSong)"  @click="toggleFavorite(currentSong)" ></i>
             </div>
           </div>
         </div>
@@ -91,18 +91,19 @@
             <i @click.stop="togglePlaying"  :class="miniIcon" class="icon-mini"></i>
           </progress-circle>
         </div>
-        <div class="control">
+        <div class="control" @click.stop.prevent="showPlaylist">
           <i class="icon-playlist"></i>
         </div>
       </div>
     </transition>
+    <play-list ref="playlist"></play-list>
     <audio :src="currentSong.url" ref="audio" @canplay="ready" @error="error" @timeupdate="updataTime" @ended="end"></audio>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 import Scroll from 'base/scroll/scroll'
-import { mapGetters, mapMutations } from 'vuex'
+import {mapGetters, mapMutations, mapActions} from 'vuex'
 import animations from 'create-keyframe-animation'
 import {prefixStyle} from 'common/js/dom'
 import ProgressBar from 'base/progress-bar/progress-bar'
@@ -110,11 +111,14 @@ import ProgressCircle from 'base/progress-circle/progress-circle'
 import {playMode} from 'common/js/config'
 import { shuffle } from 'common/js/until'
 import Lyric from 'lyric-parser'
+import PlayList from 'components/playlist/playlist'
+import {playerMixin} from 'common/js/mixin'
 
 const transform = prefixStyle('transform')
 const transitionDuration = prefixStyle('transitionDuration')
 
 export default {
+  mixins: [playerMixin],
   data() {
     return {
       songReady: false,
@@ -159,6 +163,12 @@ export default {
     ])
   },
   methods: {
+    ...mapActions([
+      'savePlayHistory'
+    ]),
+    showPlaylist() {
+      this.$refs.playlist.show()
+    },
     middleTouchStart(e) {
       this.touch.initiated = true
       const touch = e.touches[0]
@@ -329,6 +339,7 @@ export default {
     },
     ready() {
       this.songReady = true
+      this.savePlayHistory(this.currentSong)
     },
     error() {
       this.songReady = true
@@ -440,7 +451,8 @@ export default {
   components: {
     ProgressBar,
     ProgressCircle,
-    Scroll
+    Scroll,
+    PlayList
   }
 }
 </script>
