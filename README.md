@@ -1,4 +1,4 @@
-# vue-music
+# QQ-music
 
 > vue2 + vue-router2 +vuex + jsonp + es6 +webpack 抓取QQ音乐真实数据的移动端音乐WebApp
 
