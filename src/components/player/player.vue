@@ -97,7 +97,7 @@
       </div>
     </transition>
     <play-list ref="playlist"></play-list>
-    <audio :src="currentSong.url" ref="audio" @canplay="ready" @error="error" @timeupdate="updataTime" @ended="end"></audio>
+    <audio :src="currentSong.url" ref="audio" @play="ready" @error="error" @timeupdate="updataTime" @ended="end"></audio>
   </div>
 </template>
 
