@@ -41,7 +41,7 @@
 
 核心页面：
 
-                                        播放器内核页
+                                          播放器内核页
 ![Image text](https://raw.githubusercontent.com/MyJhong/QQmusic/master/static/photo/player.png)
 ![Image text](https://raw.githubusercontent.com/MyJhong/QQmusic/master/static/photo/lyric.png)
 
