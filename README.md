@@ -39,7 +39,11 @@
 
 主要页面：播放器内核页、推荐页、歌单详情页、歌手页、歌手详情页、排行页、搜索页、添加歌曲页、个人中心页等。
 
-核心页面：播放器内核页
+核心页面：
+
+                                        播放器内核页
+![Image text](https://raw.githubusercontent.com/MyJhong/QQmusic/master/static/photo/player.png)
+![Image text](https://raw.githubusercontent.com/MyJhong/QQmusic/master/static/photo/lyric.png)
 
 ## 推荐页
 
@@ -51,11 +55,16 @@
 
 为了更好的用户体验，当数据未请求到时，显示 `loading` 组件
 
+![Image text](https://raw.githubusercontent.com/MyJhong/QQmusic/master/static/photo/recommend.png)
+
 ## 推荐页 -> 歌单详情页
 
 由于歌手的状态多且杂，这里使用 `vuex` 集中管理歌手状态
 
 这个组件更加注重 UX，做了很多类原生 APP 动画，如下拉图片放大、跟随推动、ios 渐进增强的高斯模糊效果 `backdrop-filter` 等
+
+![Image text](https://raw.githubusercontent.com/MyJhong/QQmusic/master/static/photo/list.png)
+
 
 ## 歌手页
 
@@ -66,6 +75,8 @@
 列表图片使用懒加载技术 `vue-lazyload`，优化页面加载速度
 
 右侧是一个字母列表，与左侧歌手列表联动，滚动固定标题实现
+
+![Image text](https://raw.githubusercontent.com/MyJhong/QQmusic/master/static/photo/singerlist.png)
 
 ## 歌手页 -> 歌手详情页
 
@@ -91,13 +102,19 @@
 
 增加了当前播放列表组件，可在其中加入/删除歌曲
 
+![Image text](https://raw.githubusercontent.com/MyJhong/QQmusic/master/static/photo/singerlist.png)
+
 ## 排行页
 
 与推荐页雷同
 
+![Image text](https://raw.githubusercontent.com/MyJhong/QQmusic/master/static/photo/singerlist.png)
+
 ## 排行页 -> 歌单详情页
 
 复用歌单详情页
+
+![Image text](https://raw.githubusercontent.com/MyJhong/QQmusic/master/static/photo/singer.png)
 
 ## 搜索页
 
@@ -111,9 +128,13 @@
 
 支持将搜索的歌曲添加到播放列表
 
+![Image text](https://raw.githubusercontent.com/MyJhong/QQmusic/master/static/photo/search.png)
+
 ## 个人中心
 
 将 `localstorage` 中 “我的收藏” 和 “最近播放” 反映到界面上
+
+![Image text](https://raw.githubusercontent.com/MyJhong/QQmusic/master/static/photo/user.png)
 
 ## 其他
 
@@ -136,5 +157,3 @@ npm run dev //服务端运行 访问 http://localhost:8080
 
 npm run build  //项目打包 
 ```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
