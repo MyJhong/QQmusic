@@ -95,11 +95,12 @@ export default {
       this.page++
       getSearch(this.query, this.page, this.showSinger, perpage).then(res => {
         if (res.code === ERR_OK) {
-          // 把下一页数据，拼接上原页面数据
-          this.searchSongs = this._normalizeSongs(
-            this.firstList.concat(res.data.song.list)
-          )
-          this._checkMore(res.data.song)
+          if (res.code === ERR_OK) {
+            // 把下一页数据，拼接上原页面数据
+            this.firstList = this.firstList.concat(res.data.song.list)
+            this.searchSongs = this._normalizeSongs(this.firstList)
+            this._checkMore(res.data.song)
+          }
         }
       })
     },
@@ -167,10 +168,7 @@ export default {
     },
     // 判断标志位的状态
     _checkMore(data) {
-      if (
-        !data.list.length ||
-        data.curnum + data.curpage * perpage >= data.totalnum
-      ) {
+      if (!data.list.length || (data.curnum + data.curpage * perpage) > data.totalnum) {
         this.hasMore = false
       }
     },
@@ -187,6 +185,7 @@ export default {
               const songVkey = svkey[0].vkey
               const newSong = createSongs(musicData, songVkey)
               ret.push(newSong)
+              // console.log(ret)
               // 把歌曲源数据push后判断是否异步完成
               pushIndex++
               this.pushOver = list.length === pushIndex
@@ -195,6 +194,7 @@ export default {
           // ret.push(createSong(musicData, songVkey))
         }
       })
+      // console.log(ret)
       return ret
     },
     ...mapMutations({
